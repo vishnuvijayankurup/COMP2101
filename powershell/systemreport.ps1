@@ -5,7 +5,8 @@ param(
     [switch]$RAM,
     [switch]$Video,
     [switch]$Disks,
-    [switch]$Network
+    [switch]$Network,
+    [switch]$System
 )
 
 function Get-CpuReport {
@@ -49,31 +50,37 @@ function Get-NetworkReport {
     }
 }
 
-if ($CPU) {
+if ($System) {
+    Get-CpuReport
+    Get-OSReport
+    Get-RAMReport
+    Get-VideoReport
+}
+elseif ($CPU) {
     Get-CpuReport
 }
 
-if ($OS) {
+elseif ($OS) {
     Get-OSReport
 }
 
-if ($RAM) {
+elseif ($RAM) {
     Get-RAMReport
 }
 
-if ($Video) {
+elseif ($Video) {
     Get-VideoReport
 }
 
-if ($Disks) {
+elseif ($Disks) {
     Get-DisksReport
 }
 
-if ($Network) {
+elseif ($Network) {
     Get-NetworkReport
 }
 
-if (-not ($CPU -or $OS -or $RAM -or $Video -or $Disks -or $Network)) {
+else {
     Get-CpuReport
     Get-OSReport
     Get-RAMReport
